@@ -1,0 +1,140 @@
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+	title="Building Reliable Infrastructure with DevOps | Feranmi Dada"
+	description="Practical lessons on building reliable infrastructure, automation and continuous delivery."
+>
+	<main class="article">
+		<header class="article-header">
+			<p class="eyebrow">DEVOPS</p>
+
+			<h1>Building Reliable Infrastructure with DevOps</h1>
+
+			<p class="subtitle">
+				How automation, observability and continuous delivery help teams
+				build systems that are easier to operate and improve.
+			</p>
+
+			<p class="date">September 2026 · Feranmi Dada</p>
+		</header>
+
+		<article class="content">
+			<h2>Why reliability matters</h2>
+
+			<p>
+				Modern applications depend on infrastructure that needs to remain
+				available, observable and maintainable. DevOps brings development
+				and operations practices together to make software delivery more
+				reliable and repeatable.
+			</p>
+
+			<h2>Automation changes the workflow</h2>
+
+			<p>
+				Manual infrastructure changes can introduce inconsistency and make
+				troubleshooting difficult. Infrastructure as Code, CI/CD pipelines
+				and containerization allow teams to standardize how applications
+				and infrastructure are built and deployed.
+			</p>
+
+			<h2>Observability is part of reliability</h2>
+
+			<p>
+				Deploying an application is only one part of the job. Teams also
+				need visibility into system health. Metrics, logs and alerts help
+				engineers identify problems and respond before they become larger
+				incidents.
+			</p>
+
+			<h2>Continuous improvement</h2>
+
+			<p>
+				DevOps is not simply about using a collection of tools. The larger
+				goal is to create a reliable delivery process where teams can
+				measure results, learn from incidents and continuously improve
+				their systems.
+			</p>
+
+			<div class="back">
+				<a href="/blog">← Back to Blog</a>
+			</div>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.article {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 100px 32px;
+	}
+
+	.article-header {
+		padding-bottom: 60px;
+		border-bottom: 1px solid #21262d;
+	}
+
+	.eyebrow {
+		color: #7ee787;
+		font-size: 12px;
+		font-weight: 800;
+		letter-spacing: 2px;
+	}
+
+	h1 {
+		margin: 20px 0;
+		font-size: clamp(44px, 7vw, 76px);
+		line-height: 1;
+		letter-spacing: -3px;
+	}
+
+	.subtitle {
+		max-width: 700px;
+		color: #8b949e;
+		font-size: 19px;
+		line-height: 1.7;
+	}
+
+	.date {
+		margin-top: 30px;
+		color: #6e7681;
+		font-size: 14px;
+	}
+
+	.content {
+		padding-top: 60px;
+	}
+
+	.content h2 {
+		margin-top: 50px;
+		font-size: 30px;
+	}
+
+	.content p {
+		color: #a8b1bb;
+		font-size: 18px;
+		line-height: 1.8;
+	}
+
+	.back {
+		margin-top: 70px;
+		padding-top: 30px;
+		border-top: 1px solid #21262d;
+	}
+
+	.back a {
+		color: #7ee787;
+		text-decoration: none;
+		font-weight: 700;
+	}
+
+	@media (max-width: 600px) {
+		.article {
+			padding: 70px 20px;
+		}
+	}
+</style>
+```
