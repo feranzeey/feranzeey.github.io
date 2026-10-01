@@ -1,11 +1,20 @@
 ---
 const projects = [
 	{
+		title: 'PlatformOps AI',
+		description:
+			'An AI-powered Kubernetes operations platform that combines Kubernetes resources, Prometheus metrics, GitHub activity and operational insights to help engineers investigate infrastructure incidents more efficiently.',
+		tech: 'Kubernetes · Terraform · Prometheus · Docker · Python · Flask · AI',
+		link: '/blog/platformops-ai',
+		type: 'TECHNICAL ARTICLE',
+	},
+	{
 		title: 'AI-Powered Incident Response',
 		description:
 			'An automated DevOps monitoring and incident-response platform that detects infrastructure issues, analyzes logs and metrics, recommends recovery actions, verifies system health, and generates incident reports.',
 		tech: 'Python · Flask · FastAPI · Prometheus · Grafana · Loki · Docker',
 		link: 'https://github.com/feranzeey/ai-incident-response',
+		type: 'PROJECT NOTE',
 	},
 	{
 		title: 'Infrastructure Health Prediction',
@@ -13,6 +22,7 @@ const projects = [
 			'A hands-on infrastructure monitoring platform that analyzes system health, detects potential risks, generates health reports, and provides predictive analysis.',
 		tech: 'Python · Docker · Prometheus · Grafana · Node Exporter',
 		link: 'https://github.com/feranzeey/Infrastructure-Health-Prediction',
+		type: 'PROJECT NOTE',
 	},
 	{
 		title: 'Application Performance Intelligence',
@@ -20,6 +30,7 @@ const projects = [
 			'An AI-driven application monitoring and performance analysis solution designed to identify bottlenecks, detect anomalies, predict traffic and provide scaling recommendations.',
 		tech: 'Python · Flask · Prometheus · Locust · Machine Learning',
 		link: 'https://github.com/feranzeey/Application-Performance-Intelligence',
+		type: 'PROJECT NOTE',
 	},
 	{
 		title: 'AWS Infrastructure with Terraform',
@@ -27,6 +38,7 @@ const projects = [
 			'Infrastructure as Code for AWS environments using Terraform to provision and manage cloud networking, compute and application infrastructure.',
 		tech: 'AWS · Terraform · VPC · EC2 · Infrastructure as Code',
 		link: 'https://github.com/feranzeey',
+		type: 'PROJECT NOTE',
 	},
 ];
 ---
@@ -76,8 +88,11 @@ const projects = [
 						projects.map((project, index) => (
 							<article class="post">
 								<div class="post-top">
-									<span>0{index + 1}</span>
-									<span>PROJECT NOTE</span>
+									<span>
+										{String(index + 1).padStart(2, '0')}
+									</span>
+
+									<span>{project.type}</span>
 								</div>
 
 								<h2>{project.title}</h2>
@@ -88,10 +103,21 @@ const projects = [
 
 								<a
 									href={project.link}
-									target="_blank"
-									rel="noopener noreferrer"
+									target={
+										project.link.startsWith('http')
+											? '_blank'
+											: undefined
+									}
+									rel={
+										project.link.startsWith('http')
+											? 'noopener noreferrer'
+											: undefined
+									}
 								>
-									View project <span>↗</span>
+									{project.type === 'TECHNICAL ARTICLE'
+										? 'Read article'
+										: 'View project'}
+									<span>↗</span>
 								</a>
 							</article>
 						))

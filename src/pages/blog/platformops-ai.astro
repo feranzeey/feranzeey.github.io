@@ -1,0 +1,1123 @@
+---
+const title = 'Building PlatformOps AI: An AI-Powered Kubernetes Operations Platform';
+const description =
+  'A technical case study of PlatformOps AI, an AI-powered Kubernetes operations platform combining Kubernetes, Prometheus, GitHub activity and AI-assisted incident investigation.';
+const date = 'September 2026';
+const tags = [
+  'Platform Engineering',
+  'Kubernetes',
+  'Prometheus',
+  'Terraform',
+  'Python',
+  'Flask',
+  'AI',
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title} | Feranzeey</title>
+
+    <style>
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      :global(html) {
+        scroll-behavior: smooth;
+      }
+
+      :global(body) {
+        margin: 0;
+        background: #0d1117;
+        color: #c9d1d9;
+        font-family:
+          Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.8;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(900px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        border-bottom: 1px solid #21262d;
+        padding: 28px 0;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        color: #f0f6fc;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.05rem;
+      }
+
+      .back {
+        color: #58a6ff;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+
+      .back:hover {
+        text-decoration: underline;
+      }
+
+      .article-header {
+        padding: 80px 0 55px;
+        border-bottom: 1px solid #21262d;
+      }
+
+      .eyebrow {
+        color: #3fb950;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        color: #f0f6fc;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin: 0 0 24px;
+      }
+
+      .description {
+        color: #8b949e;
+        font-size: 1.15rem;
+        max-width: 760px;
+        margin: 0 0 25px;
+      }
+
+      .meta {
+        color: #8b949e;
+        font-size: 0.9rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 25px;
+      }
+
+      .tag {
+        border: 1px solid #30363d;
+        background: #161b22;
+        color: #8b949e;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+      }
+
+      article {
+        padding: 60px 0 100px;
+      }
+
+      h2 {
+        color: #f0f6fc;
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin: 65px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #21262d;
+      }
+
+      h3 {
+        color: #f0f6fc;
+        font-size: 1.25rem;
+        margin-top: 35px;
+      }
+
+      p {
+        margin: 0 0 22px;
+      }
+
+      strong {
+        color: #f0f6fc;
+      }
+
+      a {
+        color: #58a6ff;
+      }
+
+      ul {
+        padding-left: 25px;
+        margin-bottom: 25px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      blockquote {
+        margin: 30px 0;
+        padding: 18px 24px;
+        border-left: 4px solid #3fb950;
+        background: #161b22;
+        color: #f0f6fc;
+        font-size: 1.08rem;
+      }
+
+      pre {
+        overflow-x: auto;
+        background: #010409;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 25px 0 30px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      code {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.88rem;
+      }
+
+      p code,
+      li code {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 5px;
+        padding: 2px 6px;
+        color: #79c0ff;
+      }
+
+      .diagram {
+        color: #79c0ff;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        border: 1px solid #30363d;
+        padding: 13px 15px;
+        text-align: left;
+      }
+
+      th {
+        background: #161b22;
+        color: #f0f6fc;
+        font-weight: 700;
+      }
+
+      td {
+        background: #0d1117;
+      }
+
+      .callout {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-left: 4px solid #3fb950;
+        border-radius: 8px;
+        padding: 24px;
+        margin: 35px 0;
+      }
+
+      .callout-title {
+        color: #3fb950;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .project-link {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 18px;
+        border: 1px solid #238636;
+        border-radius: 7px;
+        background: #238636;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .project-link:hover {
+        background: #2ea043;
+      }
+
+      .footer {
+        border-top: 1px solid #21262d;
+        padding: 35px 0;
+        color: #8b949e;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 650px) {
+        .container {
+          width: min(100% - 28px, 900px);
+        }
+
+        .article-header {
+          padding: 55px 0 40px;
+        }
+
+        article {
+          padding: 40px 0 70px;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          margin-top: 50px;
+        }
+
+        pre {
+          padding: 15px;
+          border-radius: 6px;
+        }
+
+        table {
+          font-size: 0.85rem;
+        }
+
+        th,
+        td {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <header>
+        <div class="container nav">
+          <a class="brand" href="/">Feranzeey</a>
+          <a class="back" href="/blog">← Back to Blog</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="article-header">
+          <div class="container">
+            <div class="eyebrow">Platform Engineering · Technical Article</div>
+
+            <h1>{title}</h1>
+
+            <p class="description">{description}</p>
+
+            <div class="meta">
+              Published {date} · Feranzeey
+            </div>
+
+            <div class="tags">
+              {tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        </section>
+
+        <article>
+          <div class="container">
+
+            <p>
+              Kubernetes makes it possible to run applications reliably at
+              scale, but operating Kubernetes environments still requires
+              engineers to investigate multiple sources of information when
+              something goes wrong.
+            </p>
+
+            <p>
+              A deployment might become unavailable. A pod might enter
+              <code>CrashLoopBackOff</code>. A readiness probe might fail. At
+              that point, an engineer may need to check Kubernetes resources,
+              events, metrics, recent deployments and application changes
+              before understanding what actually happened.
+            </p>
+
+            <p>
+              I wanted to explore how these operational signals could be
+              brought together into a single platform.
+            </p>
+
+            <p>
+              That led me to build <strong>PlatformOps AI</strong> — an
+              AI-powered Kubernetes operations platform designed to combine
+              Kubernetes resources, Prometheus metrics and GitHub activity with
+              automated investigation and operational insights.
+            </p>
+
+            <p>
+              The goal was not simply to build another Kubernetes dashboard.
+            </p>
+
+            <p>
+              The goal was to make incident investigation more structured and
+              easier to understand.
+            </p>
+
+            <h2>The Problem</h2>
+
+            <p>
+              When troubleshooting a Kubernetes incident, information is often
+              distributed across several tools.
+            </p>
+
+            <p>An engineer may move between:</p>
+
+            <pre><code>kubectl
+   ↓
+Kubernetes Events
+   ↓
+Prometheus
+   ↓
+Grafana
+   ↓
+GitHub
+   ↓
+Application logs</code></pre>
+
+            <p>
+              Each tool provides useful information, but the engineer still
+              has to connect the pieces.
+            </p>
+
+            <p>
+              For example, if a deployment suddenly becomes unhealthy, I want
+              to be able to answer:
+            </p>
+
+            <ul>
+              <li>What is currently failing?</li>
+              <li>Which Kubernetes resource is affected?</li>
+              <li>What happened before the failure?</li>
+              <li>Are there abnormal resource metrics?</li>
+              <li>Was there a recent code or deployment change?</li>
+              <li>What could be causing the issue?</li>
+              <li>What action should be considered?</li>
+            </ul>
+
+            <p>
+              These questions became the foundation for PlatformOps AI.
+            </p>
+
+            <h2>What I Built</h2>
+
+            <p>
+              PlatformOps AI is a Flask-based platform that brings several
+              operational signals into one interface.
+            </p>
+
+            <p>The platform integrates with:</p>
+
+            <ul>
+              <li>Kubernetes</li>
+              <li>Prometheus</li>
+              <li>GitHub</li>
+              <li>AI-assisted investigation</li>
+              <li>Incident history</li>
+              <li>Remediation workflows</li>
+            </ul>
+
+            <p>
+              The idea is to move from simply
+              <strong>observing infrastructure</strong> toward
+              <strong>assisting with infrastructure investigation</strong>.
+            </p>
+
+            <pre class="diagram"><code>                    Platform Engineer
+                           │
+                           ▼
+                  PlatformOps AI
+                     Dashboard
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+     Kubernetes        Prometheus        GitHub
+      Resources          Metrics         Activity
+          │                │                │
+          └────────────────┼────────────────┘
+                           │
+                           ▼
+                  Investigation Engine
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+              ▼            ▼            ▼
+          Evidence     Root Cause    Severity
+          Analysis      Analysis     Assessment
+              │            │            │
+              └────────────┼────────────┘
+                           │
+                           ▼
+                    Incident Report
+                           │
+                           ▼
+                     Remediation</code></pre>
+
+            <p>
+              The architecture allows the platform to collect infrastructure
+              information before producing a structured operational view of an
+              incident.
+            </p>
+
+            <h2>Kubernetes Integration</h2>
+
+            <p>
+              Kubernetes is at the center of the platform.
+            </p>
+
+            <p>
+              PlatformOps AI interacts with Kubernetes to collect information
+              about resources running inside the cluster.
+            </p>
+
+            <p>The platform works with resources such as:</p>
+
+            <pre><code>Pods
+Deployments
+Services
+Nodes
+Namespaces
+Events</code></pre>
+
+            <p>
+              This information provides the infrastructure context required
+              for investigation.
+            </p>
+
+            <p>For example, instead of only seeing:</p>
+
+            <pre><code>Deployment: grafana
+Status: Unavailable</code></pre>
+
+            <p>
+              the platform can investigate the surrounding Kubernetes state.
+            </p>
+
+            <p>
+              This is important because the status of one resource rarely
+              tells the entire story.
+            </p>
+
+            <p>
+              A deployment might be unavailable because:
+            </p>
+
+            <ul>
+              <li>Pods are failing</li>
+              <li>Containers are repeatedly restarting</li>
+              <li>Images cannot be pulled</li>
+              <li>Readiness probes are failing</li>
+              <li>Resources are constrained</li>
+              <li>Another Kubernetes event occurred before the failure</li>
+            </ul>
+
+            <p>
+              The Kubernetes integration therefore provides the infrastructure
+              evidence needed for deeper investigation.
+            </p>
+
+            <h2>Adding Prometheus Observability</h2>
+
+            <p>
+              Infrastructure state alone is not always enough.
+            </p>
+
+            <p>
+              I also integrated Prometheus so PlatformOps AI could work with
+              operational metrics.
+            </p>
+
+            <p>
+              The platform can retrieve information around areas such as:
+            </p>
+
+            <pre><code>CPU utilization
+Memory utilization
+Network activity
+Cluster utilization</code></pre>
+
+            <p>
+              This adds another layer of context.
+            </p>
+
+            <p>For example:</p>
+
+            <pre><code>Kubernetes:
+Pod is unhealthy
+
++
+
+Prometheus:
+CPU utilization has increased significantly
+
++
+
+GitHub:
+A recent deployment occurred
+
+↓
+
+Investigation:
+Correlate the available evidence</code></pre>
+
+            <p>
+              This doesn't mean that every metric spike automatically
+              represents the root cause.
+            </p>
+
+            <p>
+              Instead, the metrics become another source of evidence that can
+              be considered during investigation.
+            </p>
+
+            <p>
+              That distinction is important when designing operational
+              tooling.
+            </p>
+
+            <h2>GitHub Integration</h2>
+
+            <p>
+              Another part of the platform is GitHub integration.
+            </p>
+
+            <p>
+              Infrastructure problems can sometimes appear shortly after
+              application changes or deployments.
+            </p>
+
+            <p>
+              Therefore, recent repository activity can provide useful context
+              during an investigation.
+            </p>
+
+            <p>
+              PlatformOps AI can retrieve information such as:
+            </p>
+
+            <pre><code>Latest commit
+Commit author
+Commit date
+Commit message</code></pre>
+
+            <p>
+              This creates a relationship between infrastructure state and
+              recent development activity.
+            </p>
+
+            <p>For example:</p>
+
+            <pre><code>Application deployment
+        ↓
+New commit
+        ↓
+Deployment becomes unhealthy
+        ↓
+Kubernetes Events
+        ↓
+Prometheus metrics
+        ↓
+Investigation</code></pre>
+
+            <p>
+              This is useful because incident investigation is often about
+              understanding <strong>what changed</strong> as well as
+              <strong>what is currently broken</strong>.
+            </p>
+
+            <h2>AI-Assisted Investigation</h2>
+
+            <p>
+              The most interesting part of the project is the investigation
+              workflow.
+            </p>
+
+            <p>
+              Rather than presenting raw infrastructure information and leaving
+              the engineer to interpret everything manually, PlatformOps AI
+              organizes the available evidence into a structured investigation.
+            </p>
+
+            <p>The investigation can identify situations such as:</p>
+
+            <pre><code>CrashLoopBackOff
+ImagePullBackOff
+Failed Deployments
+Unhealthy Pods
+Readiness Probe Failures
+Resource Problems</code></pre>
+
+            <p>
+              The resulting investigation can be structured around:
+            </p>
+
+            <pre><code>Issue
+Evidence
+Root Cause
+Severity
+Business Impact
+Recommended Action</code></pre>
+
+            <p>
+              The purpose is to make the investigation easier to understand
+              and act on.
+            </p>
+
+            <p>For example:</p>
+
+            <pre><code>Issue:
+Grafana deployment unavailable
+
+Evidence:
+Ready replicas: 0/1
+
+Impact:
+Monitoring service unavailable
+
+Severity:
+HIGH
+
+Recommended action:
+Investigate the failed deployment and
+consider a rollout restart if appropriate.</code></pre>
+
+            <p>
+              The important part here is that the AI is assisting the
+              investigation rather than replacing the underlying
+              infrastructure evidence.
+            </p>
+
+            <p>
+              The Kubernetes state, metrics and deployment information remain
+              important parts of the investigation.
+            </p>
+
+            <h2>From Monitoring to Investigation</h2>
+
+            <p>
+              One of the ideas I wanted to explore with this project was the
+              difference between <strong>monitoring</strong> and
+              <strong>investigation</strong>.
+            </p>
+
+            <p>
+              Monitoring answers:
+            </p>
+
+            <blockquote>
+              <strong>Is something wrong?</strong>
+            </blockquote>
+
+            <p>
+              Investigation asks:
+            </p>
+
+            <blockquote>
+              <strong>
+                What happened, what evidence do we have, and what should we
+                investigate next?
+              </strong>
+            </blockquote>
+
+            <p>For example:</p>
+
+            <pre><code>Monitoring
+
+Deployment unavailable
+        ↓
+Alert
+
+
+Investigation
+
+Deployment unavailable
+        ↓
+Check Pods
+        ↓
+Check Events
+        ↓
+Check Metrics
+        ↓
+Check Recent GitHub Activity
+        ↓
+Analyze Evidence
+        ↓
+Determine Possible Cause
+        ↓
+Recommend Action</code></pre>
+
+            <p>
+              PlatformOps AI was designed around this second workflow.
+            </p>
+
+            <h2>Incident Timeline</h2>
+
+            <p>
+              Another important part of the platform is keeping track of
+              investigations.
+            </p>
+
+            <p>
+              An incident shouldn't simply disappear after the service becomes
+              healthy again.
+            </p>
+
+            <p>
+              The investigation itself can become operational knowledge.
+            </p>
+
+            <p>
+              PlatformOps AI records information such as:
+            </p>
+
+            <pre><code>Timestamp
+Root Cause
+Status
+Repair Action
+Resolution History</code></pre>
+
+            <p>
+              This creates an incident timeline that can help engineers
+              understand what happened during an operational event.
+            </p>
+
+            <p>
+              Over time, this type of history can become useful when
+              investigating recurring problems.
+            </p>
+
+            <h2>Remediation</h2>
+
+            <p>
+              After investigation, the next question is usually:
+            </p>
+
+            <blockquote>
+              <strong>What should I do about it?</strong>
+            </blockquote>
+
+            <p>
+              PlatformOps AI can provide recommended Kubernetes commands or
+              remediation actions based on the investigation.
+            </p>
+
+            <p>For example:</p>
+
+            <pre><code>kubectl rollout restart deployment &lt;deployment-name&gt;</code></pre>
+
+            <p>
+              The important design principle is that recommendations should be
+              connected to the evidence collected during the investigation.
+            </p>
+
+            <p>
+              The system should not simply generate commands.
+            </p>
+
+            <p>
+              It should provide context around <strong>why</strong> an action
+              may be relevant.
+            </p>
+
+            <h2>Technology Stack</h2>
+
+            <p>
+              The project brought several DevOps and cloud-native technologies
+              together.
+            </p>
+
+            <pre><code>Python
+Flask
+Kubernetes
+Docker
+Terraform
+Prometheus
+GitHub API
+AI</code></pre>
+
+            <p>Each technology has a specific role.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Technology</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Python</td>
+                  <td>Application and automation logic</td>
+                </tr>
+                <tr>
+                  <td>Flask</td>
+                  <td>Web application/API layer</td>
+                </tr>
+                <tr>
+                  <td>Kubernetes</td>
+                  <td>Container orchestration environment</td>
+                </tr>
+                <tr>
+                  <td>Docker</td>
+                  <td>Application containerization</td>
+                </tr>
+                <tr>
+                  <td>Terraform</td>
+                  <td>Infrastructure as Code</td>
+                </tr>
+                <tr>
+                  <td>Prometheus</td>
+                  <td>Metrics and observability</td>
+                </tr>
+                <tr>
+                  <td>GitHub API</td>
+                  <td>Repository and deployment activity</td>
+                </tr>
+                <tr>
+                  <td>AI</td>
+                  <td>Investigation and operational analysis</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>
+              The combination made the project particularly interesting
+              because it sits at the intersection of
+              <strong>DevOps, platform engineering, observability and
+              AI-assisted operations</strong>.
+            </p>
+
+            <h2>Infrastructure as Code</h2>
+
+            <p>
+              I also used Terraform as part of the infrastructure setup.
+            </p>
+
+            <p>
+              This was important because I wanted infrastructure configuration
+              to be reproducible rather than relying entirely on manual
+              configuration.
+            </p>
+
+            <p>The general idea is:</p>
+
+            <pre><code>Terraform
+    ↓
+Infrastructure
+    ↓
+Kubernetes
+    ↓
+PlatformOps AI
+    ↓
+Observability</code></pre>
+
+            <p>
+              Infrastructure as Code also makes it easier to reason about how
+              the environment is created and maintained.
+            </p>
+
+            <h2>Challenges I Encountered</h2>
+
+            <p>
+              Building the project wasn't simply about connecting APIs
+              together.
+            </p>
+
+            <p>
+              One of the biggest challenges was thinking about how different
+              infrastructure signals should be interpreted together.
+            </p>
+
+            <p>
+              Kubernetes tells me about resource state.
+            </p>
+
+            <p>
+              Prometheus tells me about metrics.
+            </p>
+
+            <p>
+              GitHub tells me about recent development activity.
+            </p>
+
+            <p>
+              AI can help structure and interpret the available information.
+            </p>
+
+            <p>
+              But these signals don't automatically equal a root cause.
+            </p>
+
+            <div class="callout">
+              <div class="callout-title">Key Lesson</div>
+
+              <strong>Good incident automation depends on good evidence.</strong>
+
+              <p style="margin-top: 10px; margin-bottom: 0;">
+                The quality of the investigation depends heavily on the quality
+                and relevance of the information being collected.
+              </p>
+            </div>
+
+            <h2>What I Learned</h2>
+
+            <p>
+              Building PlatformOps AI strengthened my understanding of several
+              areas of DevOps and platform engineering.
+            </p>
+
+            <h3>1. Observability is more than collecting metrics</h3>
+
+            <p>
+              Metrics are valuable, but their real operational value comes
+              from being interpreted in context.
+            </p>
+
+            <h3>2. Kubernetes troubleshooting requires multiple signals</h3>
+
+            <p>
+              A Kubernetes resource status alone may not explain an incident.
+            </p>
+
+            <p>
+              Events, metrics, deployment information and recent changes can
+              provide additional context.
+            </p>
+
+            <h3>3. Automation should reduce investigation effort</h3>
+
+            <p>
+              The goal isn't to automate everything blindly.
+            </p>
+
+            <p>
+              The goal is to remove repetitive work and help engineers reach
+              useful information faster.
+            </p>
+
+            <h3>4. AI needs infrastructure context</h3>
+
+            <p>
+              An AI system working with infrastructure becomes more useful when
+              it has access to relevant operational evidence.
+            </p>
+
+            <h3>5. Incident history matters</h3>
+
+            <p>
+              A resolved incident can still provide valuable information for
+              future troubleshooting.
+            </p>
+
+            <h2>What I Would Improve Next</h2>
+
+            <p>
+              PlatformOps AI is also a foundation for further development.
+            </p>
+
+            <p>Some areas I would explore next include:</p>
+
+            <pre><code>More Kubernetes resource integrations
+        ↓
+Richer observability
+        ↓
+Better incident correlation
+        ↓
+More advanced AI investigation
+        ↓
+Safer automated remediation
+        ↓
+Improved incident history</code></pre>
+
+            <p>
+              I would also continue improving the separation between
+              <strong>recommendation</strong> and
+              <strong>automatic execution</strong> so that potentially
+              disruptive infrastructure actions can be handled with appropriate
+              controls.
+            </p>
+
+            <h2>Final Thoughts</h2>
+
+            <p>
+              PlatformOps AI started with a simple question:
+            </p>
+
+            <blockquote>
+              <strong>
+                What if a DevOps engineer could see Kubernetes state,
+                observability data and recent development activity in one place
+                and use that information to investigate incidents more
+                efficiently?
+              </strong>
+            </blockquote>
+
+            <p>
+              Building the platform gave me an opportunity to work across
+              Kubernetes, infrastructure automation, observability, APIs,
+              application development and AI-assisted operations.
+            </p>
+
+            <p>
+              More importantly, it reinforced something I continue to learn
+              through DevOps:
+            </p>
+
+            <blockquote>
+              <strong>
+                Infrastructure isn't just about keeping systems running. It's
+                about understanding systems well enough to respond when they
+                don't.
+              </strong>
+            </blockquote>
+
+            <h2>Explore the Project</h2>
+
+            <p>
+              The complete implementation is available on GitHub:
+            </p>
+
+            <a
+              class="project-link"
+              href="https://github.com/feranzeey/platformops-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View PlatformOps AI on GitHub →
+            </a>
+
+            <p style="margin-top: 25px;">
+              <strong>Technologies:</strong> Kubernetes · Terraform · Prometheus
+              · Docker · Python · Flask · GitHub API · AI
+            </p>
+
+          </div>
+        </article>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          © {new Date().getFullYear()} Feranzeey. Built with Astro.
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
